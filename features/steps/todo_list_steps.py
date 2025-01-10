@@ -1,11 +1,11 @@
-to_do_list = []  # Global to-do list
+to_do_list = [] 
 
 @given('the to-do list is empty')
 def step_impl(context):
     global to_do_list
-    to_do_list = []  # Reset the to-do list
+    to_do_list = []  
 
-@given('the to-do list contains tasks:')
+@given('the to-do list contains tasks')
 def step_impl(context):
     global to_do_list
     to_do_list = []
@@ -53,12 +53,7 @@ def step_impl(context, task, status):
 @then('the output should contain:')
 def step_impl(context):
     expected_tasks = [{"Task": row['Task'], "Status": row['Status']} for row in context.table]
-    assert context.listed_tasks == expected_tasks, \
-        f'Expected {expected_tasks}, but got {context.listed_tasks}'
-
-@then('the to-do list should show task "{task}" with status "Completed"')
-def step_impl(context, task):
-    step_impl(context, task, "Completed") # Reuse the more general step
+    assert context.listed_tasks == expected_tasks, f'Expected {expected_tasks}, but got {context.listed_tasks}'
 
 @then('the to-do list should be empty')
 def step_impl(context):
@@ -67,4 +62,4 @@ def step_impl(context):
 @then('an error message "{error_msg}" should be displayed')
 def step_impl(context, error_msg):
     assert hasattr(context, 'error'), "Error message not found"
-    assert context.error == error_msg, f"Unexpected error: {context.error}. Context: {context.__dict__}" # More debugging info
+    assert context.error == error_msg, f"Unexpected error: {context.error}. Context: {context.__dict__}"  
